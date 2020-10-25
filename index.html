@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Gigya - Screen Sets</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <script src='index.js'></script>
+    <SCRIPT type="text/javascript" lang="javascript"
+        src="https://cdns.gigya.com/js/gigya.js?apikey=3_mK2cmEzLkzhqe4MUrtPncxbv4wKsYAhsew0iVwhVUls3c_Jx_HLX434jAVpq5M_W"></SCRIPT>
+    <script>
+        let customButtons = [
+            { // customButton object #1
+                "type": "saml",
+                "providerName": "Gateway One",
+                "idpName": "testIdp-gig01",
+                "iconURL": "//developers.gigya.com/download/attachments/15795144/IDP.png",
+                "logoURL": "",
+                "lastLoginIconURL": "//developers.gigya.com/download/attachments/15795144/IDP.png",
+                "position": "1"
+            }
+        ]
+    </script>
+
+</head>
+
+<body>
+    <div>
+        <h1>Gigya - Screen Sets</h1>
+        <p id="loggedIn"></p>
+        <button href="#"
+            onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', customButtons, onSubmit:toggleP})">Login</button>
+        <br />
+        <button href="#"
+            onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', startScreen:'gigya-register-screen'})">Register</button>
+        <br />
+        <button href="#" onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-ProfileUpdate'})">Edit
+            Profile</button>
+        <br />
+        <button href="#" onclick="gigya.accounts.logout({callback:onLogout})">Logout</button>
+        <script>
+            function onLogout(response) {
+                if (response.errorCode === 0) {
+                    const element = document.getElementById("loggedIn").innerHTML = "";
+                    console.log(element)
+                    alert('Congratulations! You are now logged out.');
+
+                } else {
+                    alert(`Error: ${response.errorMessage}`);
+                }
+            }
+            function toggleP(eventObject) {
+                console.log('toggleP function triggered')
+                const element = document.getElementById("loggedIn").innerHTML = "You are logged in wiht Gigya :)";
+                console.log(element);
+            }
+        </script>
+    </div>
+</body>
+
+</html>
