@@ -20,6 +20,7 @@ class gigyaLocal {
     this.gigyaObject.accounts.showScreenSet({
       screenSet: "simple-screen-set",
       startScreen: "login-screen",
+      onSubmit: toggleP,
     });
   }
   registerScreenSet() {
