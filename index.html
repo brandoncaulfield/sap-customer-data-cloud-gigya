@@ -7,57 +7,77 @@
     <title>Gigya - Screen Sets</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
-    <script src='index.js'></script>
     <SCRIPT type="text/javascript" lang="javascript"
         src="https://cdns.gigya.com/js/gigya.js?apikey=3_mK2cmEzLkzhqe4MUrtPncxbv4wKsYAhsew0iVwhVUls3c_Jx_HLX434jAVpq5M_W"></SCRIPT>
-    <script>
-        let customButtons = [
-            { // customButton object #1
-                "type": "saml",
-                "providerName": "Gateway One",
-                "idpName": "testIdp-gig01",
-                "iconURL": "//developers.gigya.com/download/attachments/15795144/IDP.png",
-                "logoURL": "",
-                "lastLoginIconURL": "//developers.gigya.com/download/attachments/15795144/IDP.png",
-                "position": "1"
-            }
-        ]
-    </script>
-
+    <script src='index.js'></script>
 </head>
 
 <body>
-    <div>
+    <!-- <div> -->
+    <span>
         <h1>Gigya - Screen Sets</h1>
         <p id="loggedIn"></p>
-        <button href="#"
-            onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', customButtons, onSubmit:toggleP})">Login</button>
+        <!-- <button href="#"
+                onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', customButtons, onAfterSubmit:toggleP()})">Login</button> -->
+        <button href="#" onclick="gigyaLocalObject.loginScreenSet()">Login</button>
         <br />
-        <button href="#"
-            onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', startScreen:'gigya-register-screen'})">Register</button>
+        <!-- <button href="#"
+                onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-RegistrationLogin', startScreen:'gigya-register-screen'})">Register</button> -->
+        <button href="#" onclick="gigyaLocalObject.registerScreenSet()">Register</button>
         <br />
-        <button href="#" onclick="gigya.accounts.showScreenSet({screenSet:'NewRaas4nov15-ProfileUpdate'})">Edit
+        <button href="#" onclick="gigyaLocalObject.updateProfileScreenSet()">Edit
             Profile</button>
         <br />
-        <button href="#" onclick="gigya.accounts.logout({callback:onLogout})">Logout</button>
-        <script>
-            function onLogout(response) {
-                if (response.errorCode === 0) {
-                    const element = document.getElementById("loggedIn").innerHTML = "";
-                    console.log(element)
-                    alert('Congratulations! You are now logged out.');
+        <button href="#" onclick="gigya.accounts.logout({callback: onLogout})">Logout</button>
+        <br />
+    </span>
+    <!-- </div> -->
 
-                } else {
-                    alert(`Error: ${response.errorMessage}`);
-                }
-            }
-            function toggleP(eventObject) {
-                console.log('toggleP function triggered')
-                const element = document.getElementById("loggedIn").innerHTML = "You are logged in wiht Gigya :)";
-                console.log(element);
-            }
-        </script>
+    <div class="gigya-screen-set" id="simple-screen-set" data-width="500" data-height="600" style="display: none"
+        data-on-pending-registration-screen="edit-profile">
+        <!-- Login Screen -->
+        <div class="gigya-screen" id="login-screen" data-width="365" data-height="565" data-caption="Login">
+            <h2>Login with Your Social Identity:</h2>
+            <div class="gigya-social-login">
+                <param name="buttonsStyle" value="fullLogo">
+                <param name="width" value="313">
+                <param name="height" value="160">
+                <param name="showTermsLink" value="false">
+            </div>
+            </br>
+            <h2 style="letter-spacing: 1px;text-align: center;color: rgb(156, 156, 156);">------------ OR
+                ------------</h2>
+            </br>
+            <h2>Login with Your Site Credentials:</h2>
+            </br>
+            <form class="gigya-login-form">
+                <p>User Name:</p>
+                <input type="text" name="loginID" style="width:300">
+                <div class="gigya-error-msg" data-bound-to="loginID"></div>
+
+                <p>Password:</p>
+                <input type="password" name="password" style=" width:300">
+                <div class="gigya-error-msg" data-bound-to="password"></div>
+                </br>
+                <input type="submit" value="Login" style="float: right;"></p>
+            </form>
+            </br>
+            <p style="float: right;">Don't have an Account yet?
+                <a data-switch-screen="registration-screen">Click here</a></p>
+        </div>
     </div>
+
+    <script>
+        function onLogout(response) {
+            if (response.errorCode === 0) {
+                const element = (document.getElementById("loggedIn").innerHTML = "");
+                console.log(element);
+                alert("Congratulations! You are now logged out.");
+            } else {
+                alert(`Error: ${response.errorMessage}`);
+            }
+        }
+    </script>
 </body>
 
 </html>
